@@ -51,6 +51,30 @@ body {
     align-items: center;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.3));
+    flex-shrink: 0;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
 .logo h1 {
     background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
     -webkit-background-clip: text;
@@ -59,6 +83,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: -0.5px;
+    margin: 0;
 }
 
 .nav-menu {
@@ -475,99 +500,65 @@ body {
 }
 
 .contact-content {
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
 }
 
-.contact-form {
-    background: var(--white);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid rgba(37, 99, 235, 0.1);
-}
-
-.form-group {
-    margin-bottom: 1.8rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.6rem;
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    transition: all 0.3s;
-    background: var(--white);
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.contact-info {
+.booking-section {
     background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
     color: var(--white);
-    padding: 2.5rem;
+    padding: 4rem 3rem;
     border-radius: 20px;
     box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.booking-icon {
+    margin-bottom: 2rem;
     display: flex;
-    flex-direction: column;
     justify-content: center;
 }
 
-.contact-info h3 {
-    font-size: 2rem;
+.booking-icon svg {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.booking-section h3 {
+    font-size: 2.2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
 }
 
-.contact-info p {
-    margin-bottom: 2rem;
+.booking-section p {
+    margin-bottom: 2.5rem;
     opacity: 0.95;
-    line-height: 1.7;
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
 
-.whatsapp-btn {
+.book-appointment-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
     background: #25D366;
     color: var(--white);
-    padding: 1.2rem 2rem;
+    padding: 1.4rem 3rem;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
+    font-size: 1.1rem;
     transition: all 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
     justify-content: center;
 }
 
-.whatsapp-btn:hover {
+.book-appointment-btn:hover {
     background: #128C7E;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
-.whatsapp-btn svg {
+.book-appointment-btn svg {
     width: 24px;
     height: 24px;
 }
@@ -674,9 +665,19 @@ body {
         gap: 2rem;
     }
 
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    .booking-section {
+        padding: 3rem 2rem;
+    }
+
+    .booking-section h3 {
+        font-size: 1.8rem;
+    }
+
+    .book-appointment-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
     }
 
     .features {

@@ -41,39 +41,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// WhatsApp Contact Form Handler
-const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form values
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const service = document.getElementById('service').value;
-    const message = document.getElementById('message').value;
-    
-    // Format the message for WhatsApp
-    const whatsappMessage = `Hello! I'm interested in your services.%0A%0A` +
-        `Name: ${encodeURIComponent(name)}%0A` +
-        `Phone: ${encodeURIComponent(phone)}%0A` +
-        `Service Needed: ${encodeURIComponent(service)}%0A` +
-        `Message: ${encodeURIComponent(message)}`;
-    
-    // Replace with your actual WhatsApp number (format: country code + number without + or 0)
-    // Example: For UK number 07123456789, use 447123456789
-    // Example: For US number (555) 123-4567, use 15551234567
-    const whatsappNumber = '1234567890'; // CHANGE THIS TO YOUR ACTUAL WHATSAPP NUMBER
-    
-    // Open WhatsApp with pre-filled message
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-    window.open(whatsappURL, '_blank');
-    
-    // Reset form
-    contactForm.reset();
-    
-    // Show success message (optional)
-    alert('Opening WhatsApp... Please send the message to complete your inquiry.');
+// Book Appointment Button Handler
+const whatsappNumber = '447525710574'; // Your WhatsApp number (no + or spaces)
+const bookingMessage = 'hi can i speak to you about booking an appointment';
+
+document.querySelectorAll('.book-appointment').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(bookingMessage)}`;
+        window.open(whatsappURL, '_blank');
+    });
 });
 
 // Add animation on scroll
