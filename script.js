@@ -72,8 +72,8 @@ window.addEventListener('scroll', () => {
 
 // Scroll animations for images and cards
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -100px 0px'
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver(function(entries) {
@@ -83,12 +83,12 @@ const observer = new IntersectionObserver(function(entries) {
             setTimeout(() => {
                 entry.target.classList.add('animated');
                 
-                // Animate images inside
-                const images = entry.target.querySelectorAll('img');
+                // Animate images inside with a nice zoom effect
+                const images = entry.target.querySelectorAll('.service-image img');
                 images.forEach((img, imgIndex) => {
                     setTimeout(() => {
                         img.classList.add('animated');
-                    }, imgIndex * 100);
+                    }, imgIndex * 50);
                 });
             }, index * 100);
             
@@ -97,32 +97,28 @@ const observer = new IntersectionObserver(function(entries) {
     });
 }, observerOptions);
 
-// Observe service cards
+// Observe service cards - they start visible but get animated class for effects
 document.querySelectorAll('.service-card').forEach(card => {
     observer.observe(card);
 });
 
-// Observe other elements that need animation
-document.querySelectorAll('.service-image img').forEach(img => {
-    // Images will be animated when their parent card is animated
-});
-
-// Animate about section features
-document.querySelectorAll('.feature').forEach((feature, index) => {
-    feature.style.opacity = '0';
-    feature.style.transform = 'translateY(20px)';
-    feature.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    
-    const featureObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                featureObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    featureObserver.observe(feature);
-});
+// Animate about section features (only if JavaScript is enabled)
+if (document.querySelectorAll('.feature').length > 0) {
+    document.querySelectorAll('.feature').forEach((feature, index) => {
+        // Start visible, then animate on scroll
+        feature.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        
+        const featureObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    featureObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        featureObserver.observe(feature);
+    });
+}
 
