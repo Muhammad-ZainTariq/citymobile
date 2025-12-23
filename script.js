@@ -54,26 +54,75 @@ document.querySelectorAll('.book-appointment').forEach(button => {
     });
 });
 
-// Add animation on scroll
+// Navbar scroll effect
+const navbar = document.querySelector('.navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// Scroll animations for images and cards
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
 };
 
 const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
+    entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            // Add delay for staggered animation
+            setTimeout(() => {
+                entry.target.classList.add('animated');
+                
+                // Animate images inside
+                const images = entry.target.querySelectorAll('img');
+                images.forEach((img, imgIndex) => {
+                    setTimeout(() => {
+                        img.classList.add('animated');
+                    }, imgIndex * 100);
+                });
+            }, index * 100);
+            
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observe service cards
 document.querySelectorAll('.service-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(card);
+});
+
+// Observe other elements that need animation
+document.querySelectorAll('.service-image img').forEach(img => {
+    // Images will be animated when their parent card is animated
+});
+
+// Animate about section features
+document.querySelectorAll('.feature').forEach((feature, index) => {
+    feature.style.opacity = '0';
+    feature.style.transform = 'translateY(20px)';
+    feature.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    
+    const featureObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                featureObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    featureObserver.observe(feature);
 });
 
